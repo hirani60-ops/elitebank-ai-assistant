@@ -1,0 +1,36 @@
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Streamlit
+.streamlit/
+*.streamlit.run
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# API Keys and sensitive data
+.env
+.env.local
+secrets.toml
+
+# Misc
+*.log
+.cache/
