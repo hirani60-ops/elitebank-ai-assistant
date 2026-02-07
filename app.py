@@ -329,7 +329,7 @@ Your responses should be concise, insightful, and data-driven."""
             ]
             
             # Call Mistral AI API
-            response = client.chat(
+            response = client.chat.complete(
                 model="mistral-large-latest",
                 messages=messages,
                 temperature=0.7,
