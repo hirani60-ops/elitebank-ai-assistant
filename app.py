@@ -1,6 +1,7 @@
 import streamlit as st
 from mistralai import Mistral
 import os
+import html
 from datetime import datetime
 
 # Set page configuration with professional styling
@@ -274,10 +275,14 @@ with chat_container:
                 </div>
             """, unsafe_allow_html=True)
         else:
+            # Escape HTML in assistant message and render as markdown
+            escaped_content = html.escape(message["content"])
             st.markdown(f"""
                 <div class="assistant-message">
-                    <strong>EliteBank AI:</strong><br>{message["content"]}
+                    <strong>EliteBank AI:</strong>
                 </div>
+            """, unsafe_allow_html=True)
+            st.markdown(escaped_content)
             """, unsafe_allow_html=True)
 
 # Chat input and processing
@@ -309,7 +314,8 @@ if send_button and user_input:
         client = get_mistral_client()
         
         # System prompt for banking chatbot
-        system_prompt = """You are an elite financial advisor and banking specialist for high-net-worth individuals and institutional clients. 
+        system_prompt = """You are an elite financial advisor and banking specialist for high-net-worth individuals and institutional clients.
+
 Your expertise includes:
 - Portfolio management and wealth optimization
 - Investment strategy and market analysis
@@ -317,12 +323,23 @@ Your expertise includes:
 - Risk management and asset allocation
 - Regulatory and compliance matters
 - Premium banking solutions
+- Tax-efficient wealth management
+- Estate planning and succession strategies
+- International finance and multi-currency management
 
-Always provide professional, sophisticated advice with proper financial terminology. 
-Maintain a professional tone appropriate for C-level executives and elite professionals.
-Provide actionable insights and strategic recommendations.
-When discussing sensitive financial matters, always emphasize the importance of consulting with certified financial advisors.
-Your responses should be concise, insightful, and data-driven."""
+RESPONSE GUIDELINES:
+1. Always structure responses with clear sections using markdown formatting (use ##, bullet points, etc.)
+2. Provide specific, actionable insights backed by financial principles
+3. Include relevant metrics, percentages, or ranges when applicable
+4. Use professional but accessible language
+5. For complex strategies, break down into steps
+6. Always emphasize the importance of consulting with certified financial advisors for critical decisions
+7. Be data-driven and fact-based in all recommendations
+8. Address both opportunities and risks in any analysis
+9. Maintain discretion and confidentiality in all matters
+10. Keep tone appropriate for C-level executives and ultra-high-net-worth individuals
+
+Your responses should be comprehensive yet concise, sophisticated, and directly relevant to the inquiry."""
         
         try:
             # Build messages list with system prompt
