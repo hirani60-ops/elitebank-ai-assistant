@@ -283,7 +283,6 @@ with chat_container:
                 </div>
             """, unsafe_allow_html=True)
             st.markdown(escaped_content)
-            """, unsafe_allow_html=True)
 
 # Chat input and processing
 st.divider()
