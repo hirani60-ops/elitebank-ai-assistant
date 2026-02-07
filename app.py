@@ -180,15 +180,18 @@ with st.sidebar:
     """, unsafe_allow_html=True)
     
     services = [
-        "💼 Portfolio Strategy",
-        "📈 Market Intelligence",
-        "💰 Wealth Management",
-        "🏦 Banking Solutions",
-        "📊 Investment Planning",
-        "🔐 Risk Assessment"
+        ("💼 Portfolio Strategy", "Tell me about portfolio strategy and optimization"),
+        ("📈 Market Intelligence", "Provide market analysis and intelligence"),
+        ("💰 Wealth Management", "Discuss wealth management strategies"),
+        ("🏦 Banking Solutions", "Explain banking solutions available"),
+        ("📊 Investment Planning", "Help with investment planning"),
+        ("🔐 Risk Assessment", "Perform risk assessment analysis")
     ]
-    for service in services:
-        st.write(f"• {service}")
+    
+    for service_name, service_prompt in services:
+        if st.button(service_name, use_container_width=True, key=f"service_{service_name}"):
+            st.session_state.messages.append({"role": "user", "content": service_prompt})
+            st.rerun()
     
     st.divider()
     
