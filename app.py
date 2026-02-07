@@ -1,6 +1,5 @@
 import streamlit as st
 from mistralai.client import MistralClient
-from mistralai.models.chat_message import ChatMessage
 import os
 from datetime import datetime
 
@@ -322,16 +321,12 @@ When discussing sensitive financial matters, always emphasize the importance of 
 Your responses should be concise, insightful, and data-driven."""
         
         try:
-            # Convert message history to ChatMessage format
-            messages = []
-            messages.append(ChatMessage(role="system", content=system_prompt))
-            
-            # Add previous messages
-            for msg in st.session_state.messages[:-1]:
-                messages.append(ChatMessage(role=msg["role"], content=msg["content"]))
-            
-            # Add current user message
-            messages.append(ChatMessage(role="user", content=user_input))
+            # Build messages list with system prompt
+            messages = [
+                {"role": "system", "content": system_prompt},
+                *st.session_state.messages[:-1],  # Previous messages
+                {"role": "user", "content": user_input}
+            ]
             
             # Call Mistral AI API
             response = client.chat(
