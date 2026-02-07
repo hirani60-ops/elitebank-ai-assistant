@@ -381,6 +381,6 @@ st.markdown(f"""
     <p><strong>EliteBank AI Assistant</strong> | Confidential | For Authorized Use Only</p>
     <p>This system is powered by advanced AI technology. For critical financial decisions, please consult with qualified financial professionals.</p>
     <p style="margin-top: 1rem; font-size: 0.8em;"><em>&copy; 2026 EliteBank. All rights reserved. Enterprise Security Grade.</em></p>
-    <p style="margin-top: 0.5rem; font-size: 0.8em;">📧 Contact: <strong>hirani60@gmail.com</strong></p>
+    <p style="margin-top: 0.5rem; font-size: 0.8em;">&#128231; Contact: <strong>hirani60@gmail.com</strong></p>
 </div>
 """, unsafe_allow_html=True)
