@@ -1,5 +1,5 @@
 import streamlit as st
-from mistralai.client import MistralClient
+from mistralai import Mistral
 import os
 from datetime import datetime
 
@@ -181,7 +181,7 @@ st.markdown(f"""
 def get_mistral_client():
     # Get API key from secrets (Streamlit Cloud) or environment variable
     api_key = st.secrets.get("mistral_api_key", os.getenv("MISTRAL_API_KEY", "nNKQYvoDfR3Z30ErVekiXoxClJQANBj2"))
-    return MistralClient(api_key=api_key)
+    return Mistral(api_key=api_key)
 
 # Initialize session state for chat history
 if "messages" not in st.session_state:
