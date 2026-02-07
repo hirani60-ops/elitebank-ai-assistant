@@ -380,7 +380,7 @@ st.markdown(f"""
 <div style="text-align: center; padding: 1.5rem; opacity: 0.7; font-size: 0.85em; color: {TEXT_COLOR};">
     <p><strong>EliteBank AI Assistant</strong> | Confidential | For Authorized Use Only</p>
     <p>This system is powered by advanced AI technology. For critical financial decisions, please consult with qualified financial professionals.</p>
-    <p style="margin-top: 1rem; font-size: 0.8em;"><em>© 2026 EliteBank. All rights reserved. Enterprise Security Grade.</em></p>
+    <p style="margin-top: 1rem; font-size: 0.8em;"><em>&copy; 2026 EliteBank. All rights reserved. Enterprise Security Grade.</em></p>
     <p style="margin-top: 0.5rem; font-size: 0.8em;">📧 Contact: <strong>hirani60@gmail.com</strong></p>
 </div>
 """, unsafe_allow_html=True)
