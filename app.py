@@ -195,6 +195,9 @@ if "messages" not in st.session_state:
 if "conversation_count" not in st.session_state:
     st.session_state.conversation_count = 0
 
+if "user_input_key" not in st.session_state:
+    st.session_state.user_input_key = 0
+
 # Header
 st.markdown("""
     <div class="header-container">
@@ -286,7 +289,8 @@ with col1:
     user_input = st.text_input(
         "Enter your inquiry:",
         placeholder="Ask about portfolios, investments, banking services, market analysis...",
-        label_visibility="collapsed"
+        label_visibility="collapsed",
+        key=f"user_input_{st.session_state.user_input_key}"
     )
 
 with col2:
@@ -345,6 +349,7 @@ Your responses should be concise, insightful, and data-driven."""
             })
             
             st.session_state.conversation_count += 1
+            st.session_state.user_input_key += 1  # Clear input field
             st.rerun()
             
         except Exception as e:
