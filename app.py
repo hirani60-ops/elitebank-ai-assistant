@@ -1,5 +1,6 @@
 import streamlit as st
-from mistralai import Mistral
+from mistralai.client import MistralClient
+from mistralai.models.chat_message import ChatMessage
 import os
 from datetime import datetime
 
@@ -179,8 +180,9 @@ st.markdown(f"""
 # Initialize Mistral AI client
 @st.cache_resource
 def get_mistral_client():
-    api_key = "nNKQYvoDfR3Z30ErVekiXoxClJQANBj2"
-    return Mistral(api_key=api_key)
+    # Get API key from secrets (Streamlit Cloud) or environment variable
+    api_key = st.secrets.get("mistral_api_key", os.getenv("MISTRAL_API_KEY", "nNKQYvoDfR3Z30ErVekiXoxClJQANBj2"))
+    return MistralClient(api_key=api_key)
 
 # Initialize session state for chat history
 if "messages" not in st.session_state:
@@ -320,14 +322,21 @@ When discussing sensitive financial matters, always emphasize the importance of 
 Your responses should be concise, insightful, and data-driven."""
         
         try:
+            # Convert message history to ChatMessage format
+            messages = []
+            messages.append(ChatMessage(role="system", content=system_prompt))
+            
+            # Add previous messages
+            for msg in st.session_state.messages[:-1]:
+                messages.append(ChatMessage(role=msg["role"], content=msg["content"]))
+            
+            # Add current user message
+            messages.append(ChatMessage(role="user", content=user_input))
+            
             # Call Mistral AI API
-            response = client.chat.complete(
+            response = client.chat(
                 model="mistral-large-latest",
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    *st.session_state.messages[:-1],  # Exclude the current user message to add it properly
-                    {"role": "user", "content": user_input}
-                ],
+                messages=messages,
                 temperature=0.7,
                 max_tokens=1024
             )
