@@ -234,18 +234,19 @@ for message in st.session_state.messages:
 
 st.divider()
 
-# Input section
-col1, col2 = st.columns([0.85, 0.15])
-
-with col1:
-    user_input = st.text_input(
-        "Message:",
-        placeholder="Type your financial question or inquiry...",
-        label_visibility="collapsed"
-    )
-
-with col2:
-    send_button = st.button("Send", use_container_width=True)
+# Input section with form for Enter key support
+with st.form(key="message_form", clear_on_submit=True):
+    col1, col2 = st.columns([0.85, 0.15])
+    
+    with col1:
+        user_input = st.text_input(
+            "Message:",
+            placeholder="Type your financial question or inquiry...",
+            label_visibility="collapsed"
+        )
+    
+    with col2:
+        send_button = st.form_submit_button("Send", use_container_width=True)
 
 # Process input
 if send_button and user_input:
